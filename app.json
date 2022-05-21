@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "project-manager",
+    "slug": "project-manager",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
