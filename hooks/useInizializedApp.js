@@ -6,7 +6,7 @@ import { appInitializedMyTasks } from "../store/myTasks/myTasksSlice";
 import { appInitializedSettings } from "../store/settings/settingsSlice";
 import {
   getDataStorage,
-  setDataStorage,
+  addDataStorage,
   setSettingsDataStore,
 } from "../utils/dataStorage";
 
@@ -23,8 +23,8 @@ const useInizializedApp = () => {
         dispatch(appInitializedMyTasks(tasks));
         dispatch(appInitializedSettings(settings));
       } else {
-        await setDataStorage("myProjects");
-        await setDataStorage("myTasks");
+        await addDataStorage("myProjects");
+        await addDataStorage("myTasks");
         await setSettingsDataStore();
       }
     };

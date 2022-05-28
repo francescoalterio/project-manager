@@ -17,12 +17,19 @@ import { BtnCreateProject } from "./components/BtnCreateProject";
 import CreateProject from "./pages/CreateProject";
 import Project from "./pages/Project";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import CreateTodo from "./pages/CreateTodo";
+
 export default function App() {
   const Tab = createBottomTabNavigator();
   const ProjectStack = createNativeStackNavigator();
   const HomeStack = createNativeStackNavigator();
   const TaskStack = createNativeStackNavigator();
   const SettingsStack = createNativeStackNavigator();
+
+  /*React.useEffect(() => {
+    AsyncStorage.removeItem("myProjects");
+  }, []);*/
 
   return (
     <Provider store={store}>
@@ -58,26 +65,39 @@ export default function App() {
               >
                 {() => (
                   <ProjectStack.Navigator>
-                    <ProjectStack.Screen
-                      name="Mis Proyectos Page"
-                      component={MyProjects}
-                      options={{
-                        headerRight: (props) => <BtnCreateProject {...props} />,
-                        title: "Mis Proyectos",
-                      }}
-                    />
-                    <ProjectStack.Screen
-                      name="Crear Proyecto Page"
-                      component={CreateProject}
-                      options={{ title: "Crear Proyecto" }}
-                    />
-                    <ProjectStack.Screen
-                      name="Proyecto Page"
-                      component={Project}
-                      options={{
-                        title: "Mi Proyecto",
-                      }}
-                    />
+                    <ProjectStack.Group>
+                      <ProjectStack.Screen
+                        name="Mis Proyectos Page"
+                        component={MyProjects}
+                        options={{
+                          headerRight: (props) => (
+                            <BtnCreateProject {...props} />
+                          ),
+                          title: "Mis Proyectos",
+                        }}
+                      />
+                      <ProjectStack.Screen
+                        name="Crear Proyecto Page"
+                        component={CreateProject}
+                        options={{ title: "Crear Proyecto" }}
+                      />
+                      <ProjectStack.Screen
+                        name="Proyecto Page"
+                        component={Project}
+                        options={{
+                          title: "Mi Proyecto",
+                        }}
+                      />
+                    </ProjectStack.Group>
+                    <ProjectStack.Group
+                      screenOptions={{ presentation: "modal" }}
+                    >
+                      <ProjectStack.Screen
+                        name="Create Todo"
+                        component={CreateTodo}
+                        options={{ title: "Agregar Tarea" }}
+                      />
+                    </ProjectStack.Group>
                   </ProjectStack.Navigator>
                 )}
               </Tab.Screen>

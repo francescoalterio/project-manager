@@ -6,7 +6,7 @@ export const getDataStorage = async (key) => {
   return data;
 };
 
-export const setDataStorage = async (key, value) => {
+export const addDataStorage = async (key, value) => {
   const res = await AsyncStorage.getItem(key);
   const data = JSON.parse(res);
   if (data) {
@@ -14,6 +14,30 @@ export const setDataStorage = async (key, value) => {
     await AsyncStorage.setItem(key, JSON.stringify(newData));
   } else {
     await AsyncStorage.setItem(key, JSON.stringify([]));
+  }
+};
+
+export const addTaskStorage = async (key, value, arrayName) => {
+  if (key === "myProjects" && arrayName === "tasks") {
+    const res = await AsyncStorage.getItem(key);
+    const data = JSON.parse(res);
+    const newData = [...data];
+    newData.forEach((project) => {
+      if (project.id === value.projectId) {
+        project.tasks.push(value);
+      }
+    });
+    await AsyncStorage.setItem(key, JSON.stringify(newData));
+  } else if (key === "myProjects" && arrayName === "completedTasks") {
+    const res = await AsyncStorage.getItem(key);
+    const data = JSON.parse(res);
+    const newData = [...data];
+    newData.forEach((project) => {
+      if (project.id === value.projectId) {
+        project.completedTasks.push(value);
+      }
+    });
+    await AsyncStorage.setItem(key, JSON.stringify(newData));
   }
 };
 
