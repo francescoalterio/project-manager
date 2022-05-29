@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Todo = ({ id, title, important }) => {
+const Todo = ({ id, title, important, handler }) => {
   return (
     <TouchableOpacity
       style={
@@ -10,6 +10,7 @@ const Todo = ({ id, title, important }) => {
           ? [styles.container, { borderColor: "#ff8c00" }]
           : [styles.container]
       }
+      onPress={() => handler(id)}
     >
       {important ? (
         <View style={[styles.circle, { backgroundColor: "#ff8c00" }]}>

@@ -17,6 +17,10 @@ const Project = ({ route }) => {
     setProject(projects.find((project) => project.id === route.params.id));
   }, [projects]);
 
+  useEffect(() => {
+    console.log(project);
+  }, [project]);
+
   return (
     <View style={styles.container}>
       <View style={styles.backgroundInfo}>

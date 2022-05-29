@@ -15,10 +15,6 @@ const TodoList = ({ projectId, tasks }) => {
   const [ordenedTasks, setOrdenedTasks] = useState([]);
   const navigation = useNavigation();
 
-  const createTodoHandler = () => {
-    navigation.navigate("Create Todo", { projectId });
-  };
-
   useEffect(() => {
     console.log(tasks);
   }, []);
@@ -31,6 +27,14 @@ const TodoList = ({ projectId, tasks }) => {
       setOrdenedTasks(ordenedTasks);
     }
   }, [tasks]);
+
+  const createTodoHandler = () => {
+    navigation.navigate("Create Todo", { projectId });
+  };
+
+  const todoInfoHandler = (id) => {
+    navigation.navigate("Todo Info", { projectId, taskId: id });
+  };
 
   return (
     <View style={styles.background}>
@@ -45,9 +49,10 @@ const TodoList = ({ projectId, tasks }) => {
                 title={item.title}
                 description={item.description}
                 important={item.important}
+                handler={todoInfoHandler}
               />
             )}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id * Date.now()}
           />
         </SafeAreaView>
       </View>

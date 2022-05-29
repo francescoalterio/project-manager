@@ -35,9 +35,59 @@ export const addTaskStorage = async (key, value, arrayName) => {
     newData.forEach((project) => {
       if (project.id === value.projectId) {
         project.completedTasks.push(value);
+        const tasks = project.tasks.filter((task) => task.id !== value.id);
+        project.tasks = tasks;
       }
     });
     await AsyncStorage.setItem(key, JSON.stringify(newData));
+  }
+};
+
+export const deleteTaskDataStorage = async (key, value, arrayName) => {
+  if (key === "myProjects" && arrayName === "tasks") {
+    const res = await AsyncStorage.getItem(key);
+    const data = JSON.parse(res);
+    const newData = [...data];
+    newData.forEach((project) => {
+      if (project.id === value.projectId) {
+        const tasks = project.tasks.filter((task) => task.id !== value.taskId);
+        project.tasks = tasks;
+      }
+    });
+    await AsyncStorage.setItem(key, JSON.stringify(newData));
+  } else if (key === "myProjects" && arrayName === "completedTasks") {
+    const res = await AsyncStorage.getItem(key);
+    const data = JSON.parse(res);
+    const newData = [...data];
+    newData.forEach((project) => {
+      if (project.id === value.projectId) {
+        const completedTasks = project.completedTasks.filter(
+          (task) => task.id !== value.taskId
+        );
+        project.completedTasks = completedTasks;
+      }
+    });
+    await AsyncStorage.setItem(key, JSON.stringify(newData));
+  }
+};
+
+export const editTaskDataStorage = async (key, value) => {
+  if (key === "myProjects") {
+    const res = await AsyncStorage.getItem(key);
+    const data = JSON.parse(res);
+    const newData = [...data];
+    newData.forEach((project) => {
+      if (project.id === value.projectId) {
+        project.tasks.forEach((task) => {
+          if (task.id === value.taskId) {
+            task.title = value.task.title;
+            task.description = value.task.description;
+            task.important = value.task.important;
+          }
+        });
+      }
+    });
+    AsyncStorage.setItem(key, JSON.stringify(newData));
   }
 };
 

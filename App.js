@@ -19,6 +19,7 @@ import Project from "./pages/Project";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CreateTodo from "./pages/CreateTodo";
+import TodoInfo from "./pages/TodoInfo";
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -29,6 +30,7 @@ export default function App() {
 
   /*React.useEffect(() => {
     AsyncStorage.removeItem("myProjects");
+    AsyncStorage.removeItem("myTasks");
   }, []);*/
 
   return (
@@ -96,6 +98,11 @@ export default function App() {
                         name="Create Todo"
                         component={CreateTodo}
                         options={{ title: "Agregar Tarea" }}
+                      />
+                      <ProjectStack.Screen
+                        name="Todo Info"
+                        component={TodoInfo}
+                        options={{ title: "Mi Tarea" }}
                       />
                     </ProjectStack.Group>
                   </ProjectStack.Navigator>

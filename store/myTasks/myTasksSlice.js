@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const myTasksSlice = createSlice({
   name: "myTasks",
   initialState: {
-    value: [],
+    value: { tasks: [], completedTasks: [] },
   },
   reducers: {
     appInitializedMyTasks: (state, actions) => {

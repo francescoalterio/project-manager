@@ -38,10 +38,43 @@ export const myProjectsSlice = createSlice({
     },
     addProjectCompletedTask: (state, actions) => {
       const id = actions.payload.projectId;
-      const newCompletedTask = actions.payload;
+      const taskId = actions.payload.taskId;
       state.value = state.value.map((project) => {
         if (project.id === id) {
-          project.completedTasks.push(newCompletedTask);
+          const completedTask = project.tasks.filter(
+            (task) => task.id === taskId
+          );
+          project.completedTasks.push(completedTask[0]);
+          const tasks = project.tasks.filter((task) => task.id !== taskId);
+          project.tasks = tasks;
+        }
+        return project;
+      });
+    },
+    deleteProjectTask: (state, actions) => {
+      const id = actions.payload.projectId;
+      const taskId = actions.payload.taskId;
+      state.value = state.value.map((project) => {
+        if (project.id === id) {
+          const tasks = project.tasks.filter((task) => task.id !== taskId);
+          project.tasks = tasks;
+        }
+        return project;
+      });
+    },
+    editProjectTask: (state, actions) => {
+      const id = actions.payload.projectId;
+      const taskId = actions.payload.taskId;
+      const newTask = actions.payload.task;
+      state.value = state.value.map((project) => {
+        if (project.id === id) {
+          const tasks = project.tasks.map((task) => {
+            if (task.id === taskId) {
+              return newTask;
+            }
+            return task;
+          });
+          project.tasks = tasks;
         }
         return project;
       });
@@ -57,6 +90,8 @@ export const {
   editProject,
   addProjectTask,
   addProjectCompletedTask,
+  deleteProjectTask,
+  editProjectTask,
 } = myProjectsSlice.actions;
 
 export default myProjectsSlice.reducer;
