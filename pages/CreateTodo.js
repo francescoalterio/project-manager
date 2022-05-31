@@ -57,27 +57,36 @@ const CreateTodo = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Titulo</Text>
+      <Text style={styles.field}>Titulo</Text>
       <TextInput
         value={title}
         onChangeText={(text) => setTitle(text)}
-        placeholder="Publicar el proyecto"
+        placeholder="Publicar el proyecto..."
+        style={styles.inputTitle}
       />
-      <Text>Descripcion</Text>
+      <View style={styles.switchBox}>
+        <Text style={styles.field}>Tarea Importante</Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+          style={styles.switch}
+        />
+      </View>
+      <Text style={styles.field}>Descripcion</Text>
       <TextInput
+        multiline={true}
         value={description}
         onChangeText={(text) => setDescription(text)}
         placeholder="Publicar el proyecto..."
+        style={styles.inputDescription}
       />
-      <Text>Tarea Importante</Text>
-      <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
-      <Button title="Agregar Tarea" onPress={addTaskHandler} />
+
+      <View style={styles.buttonBox}>
+        <Button title="Agregar Tarea" onPress={addTaskHandler} />
+      </View>
       {error ? <ErrorAlert error={error} /> : undefined}
     </View>
   );
@@ -86,6 +95,43 @@ const CreateTodo = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
+  },
+  field: {
+    marginBottom: 10,
+    fontSize: 20,
+  },
+  inputTitle: {
+    width: "100%",
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingLeft: 10,
+  },
+  inputDescription: {
+    width: "100%",
+    height: "50%",
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    textAlignVertical: "top",
+    padding: 10,
+  },
+  switchBox: {
+    flexDirection: "row",
+
+    alignItems: "center",
+  },
+  switch: {
+    marginLeft: 10,
+    marginBottom: 10,
+  },
+  buttonBox: {
+    marginTop: 10,
+    flex: 1,
+    justifyContent: "center",
+    marginBottom: 10,
   },
 });
 

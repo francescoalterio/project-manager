@@ -2,17 +2,23 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Todo = ({ id, title, important, handler }) => {
+const Todo = ({ id, title, important, handler, completed }) => {
   return (
     <TouchableOpacity
       style={
-        important
+        completed
+          ? [styles.container, { borderColor: "#427bf5" }]
+          : important
           ? [styles.container, { borderColor: "#ff8c00" }]
           : [styles.container]
       }
       onPress={() => handler(id)}
     >
-      {important ? (
+      {completed ? (
+        <View style={[styles.circle, { backgroundColor: "#427bf5" }]}>
+          <Ionicons name="checkmark-outline" size={25} color="#fff" />
+        </View>
+      ) : important ? (
         <View style={[styles.circle, { backgroundColor: "#ff8c00" }]}>
           <Ionicons name="alert-outline" size={20} color="#fff" />
         </View>

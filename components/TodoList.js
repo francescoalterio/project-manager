@@ -11,13 +11,9 @@ import { useNavigation } from "@react-navigation/native";
 
 import Todo from "./Todo";
 
-const TodoList = ({ projectId, tasks }) => {
+const TodoList = ({ projectId, tasks, completedTasks }) => {
   const [ordenedTasks, setOrdenedTasks] = useState([]);
   const navigation = useNavigation();
-
-  useEffect(() => {
-    console.log(tasks);
-  }, []);
 
   useEffect(() => {
     if (tasks) {
@@ -33,13 +29,17 @@ const TodoList = ({ projectId, tasks }) => {
   };
 
   const todoInfoHandler = (id) => {
-    navigation.navigate("Todo Info", { projectId, taskId: id });
+    navigation.navigate("Todo Info", { projectId, taskId: id, completedTasks });
   };
 
   return (
     <View style={styles.background}>
       <View style={styles.container}>
-        <Button title="Agregar Tarea" onPress={createTodoHandler} />
+        {!completedTasks ? (
+          <View style={styles.buttonContainer}>
+            <Button title="Agregar Tarea" onPress={createTodoHandler} />
+          </View>
+        ) : undefined}
         <SafeAreaView style={styles.flatlist}>
           <FlatList
             data={ordenedTasks}
@@ -50,6 +50,7 @@ const TodoList = ({ projectId, tasks }) => {
                 description={item.description}
                 important={item.important}
                 handler={todoInfoHandler}
+                completed={completedTasks}
               />
             )}
             keyExtractor={(item) => item.id * Date.now()}
@@ -73,7 +74,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   flatlist: {
-    marginTop: 20,
+    marginBottom: 20,
+  },
+  buttonContainer: {
     marginBottom: 20,
   },
 });

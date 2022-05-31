@@ -62,6 +62,19 @@ export const myProjectsSlice = createSlice({
         return project;
       });
     },
+    deleteCompletedProjectTask: (state, actions) => {
+      const id = actions.payload.projectId;
+      const taskId = actions.payload.taskId;
+      state.value = state.value.map((project) => {
+        if (project.id === id) {
+          const completedTasks = project.completedTasks.filter((task) => {
+            return task.id !== taskId;
+          });
+          project.completedTasks = completedTasks;
+        }
+        return project;
+      });
+    },
     editProjectTask: (state, actions) => {
       const id = actions.payload.projectId;
       const taskId = actions.payload.taskId;
@@ -91,6 +104,7 @@ export const {
   addProjectTask,
   addProjectCompletedTask,
   deleteProjectTask,
+  deleteCompletedProjectTask,
   editProjectTask,
 } = myProjectsSlice.actions;
 

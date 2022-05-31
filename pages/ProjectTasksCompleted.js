@@ -1,9 +1,10 @@
 import { View, Text } from "react-native";
+import TodoList from "../components/TodoList";
 
 const ProjectTasksCompleted = ({ id, completedTasks }) => {
   return (
     <View>
-      <Text>Project Tasks Completed</Text>
+      <TodoList projectId={id} tasks={completedTasks} completedTasks />
     </View>
   );
 };

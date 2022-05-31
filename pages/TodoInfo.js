@@ -1,8 +1,19 @@
 import { useState, useEffect } from "react";
-import { View, Text, Button, Alert, TextInput, Switch } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  Alert,
+  TextInput,
+  Switch,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addProjectCompletedTask,
+  deleteCompletedProjectTask,
   deleteProjectTask,
   editProjectTask,
 } from "../store/myProjects/myProjectsSlice";
@@ -18,7 +29,9 @@ const TodoInfo = ({ route, navigation }) => {
       const project = state.myProjects.value.find(
         (project) => project.id === route.params.projectId
       );
-      return project.tasks.find((task) => task.id === route.params.taskId);
+      return route.params.completedTasks
+        ? project.completedTasks.find((task) => task.id === route.params.taskId)
+        : project.tasks.find((task) => task.id === route.params.taskId);
     } else {
       return state.tasks.value.tasks.find(
         (task) => task.id === route.params.taskId
@@ -28,6 +41,7 @@ const TodoInfo = ({ route, navigation }) => {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description);
   const [isEnabled, setIsEnabled] = useState(task.important);
+  const [isCompleted, setIsCompleted] = useState(route.params.completedTasks);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const dispatch = useDispatch();
@@ -43,8 +57,13 @@ const TodoInfo = ({ route, navigation }) => {
             taskId: route.params.taskId,
           };
           navigation.navigate("Proyecto Page", { id: route.params.projectId });
-          dispatch(deleteProjectTask(data));
-          deleteTaskDataStorage("myProjects", data, "tasks");
+          if (!isCompleted) {
+            dispatch(deleteProjectTask(data));
+            deleteTaskDataStorage("myProjects", data, "tasks");
+          } else {
+            dispatch(deleteCompletedProjectTask(data));
+            deleteTaskDataStorage("myProjects", data, "completedTasks");
+          }
         },
       },
     ]);
@@ -105,31 +124,138 @@ const TodoInfo = ({ route, navigation }) => {
   };
 
   return (
-    <View>
-      <Text>Titulo: </Text>
-      <TextInput value={title} onChangeText={(text) => setTitle(text)} />
-      <Text>Descripcion: </Text>
-      <TextInput
-        value={description}
-        onChangeText={(text) => setDescription(text)}
-      />
-      <Text>Importancia: </Text>
-      <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
-      <Button
-        title="Eliminar Tarea"
-        color="#ff3636"
-        onPress={handleDeleteTask}
-      />
-      <Button title="Editar Tarea" color="#228b22" onPress={handleEditTask} />
-      <Button title="Completar Tarea" onPress={handleCompleteTask} />
+    <View style={styles.container}>
+      {isCompleted ? (
+        <>
+          <Text style={styles.field}>Titulo: </Text>
+          <View style={styles.titleField}>
+            <Text>{title}</Text>
+          </View>
+          <Text style={styles.field}>Descripcion: </Text>
+          <View style={styles.safeAreaContainer}>
+            <SafeAreaView styles={styles.safeArea}>
+              <ScrollView style={styles.scrollView}>
+                <Text>{description}</Text>
+              </ScrollView>
+            </SafeAreaView>
+          </View>
+        </>
+      ) : (
+        <>
+          <Text style={styles.field}>Titulo: </Text>
+          <TextInput
+            style={styles.inputTitle}
+            value={title}
+            onChangeText={(text) => setTitle(text)}
+          />
+          {!isCompleted ? (
+            <View style={styles.switchBox}>
+              <Text style={styles.field}>Importancia: </Text>
+              <Switch
+                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+                style={styles.switch}
+              />
+            </View>
+          ) : undefined}
+          <Text style={styles.field}>Descripcion: </Text>
+          <TextInput
+            value={description}
+            onChangeText={(text) => setDescription(text)}
+            style={styles.inputDescription}
+            multiline={true}
+          />
+        </>
+      )}
+
+      <View style={styles.buttonBox}>
+        <Button
+          title="Eliminar Tarea"
+          color="#ff3636"
+          onPress={handleDeleteTask}
+        />
+
+        {!isCompleted ? (
+          <>
+            <Button
+              title="Editar Tarea"
+              color="#228b22"
+              onPress={handleEditTask}
+            />
+            <Button title="Completar Tarea" onPress={handleCompleteTask} />
+          </>
+        ) : undefined}
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+  },
+  field: {
+    marginBottom: 10,
+    fontSize: 20,
+  },
+  inputTitle: {
+    width: "100%",
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingLeft: 10,
+  },
+  inputDescription: {
+    width: "100%",
+    height: "50%",
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    textAlignVertical: "top",
+    padding: 10,
+  },
+  switchBox: {
+    flexDirection: "row",
+
+    alignItems: "center",
+  },
+  switch: {
+    marginLeft: 10,
+    marginBottom: 10,
+  },
+  buttonBox: {
+    flex: 1,
+    justifyContent: "space-evenly",
+    marginBottom: 10,
+  },
+  titleField: {
+    width: "100%",
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingLeft: 10,
+    justifyContent: "center",
+  },
+  safeAreaContainer: {
+    width: "100%",
+    height: "50%",
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    padding: 10,
+  },
+  safeArea: {
+    flex: 1,
+  },
+  scrollView: {
+    textAlignVertical: "top",
+  },
+});
 
 export default TodoInfo;
