@@ -1,5 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+export const deleteProjectStorage = async (projectId) => {
+  const projects = await AsyncStorage.getItem("myProjects");
+  const projectsJson = JSON.parse(projects);
+  const newProjects = projectsJson.filter(
+    (project) => project.id !== projectId
+  );
+  await AsyncStorage.setItem("myProjects", JSON.stringify(newProjects));
+};
+
 export const getDataStorage = async (key) => {
   const res = await AsyncStorage.getItem(key);
   const data = await JSON.parse(res);
@@ -13,7 +22,7 @@ export const addDataStorage = async (key, value) => {
     const newData = [...data, value];
     await AsyncStorage.setItem(key, JSON.stringify(newData));
   } else {
-    await AsyncStorage.setItem(key, JSON.stringify([]));
+    await AsyncStorage.setItem(key, JSON.stringify(value));
   }
 };
 
