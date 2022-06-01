@@ -7,27 +7,40 @@ const Todo = ({ id, title, important, handler, completed }) => {
     <TouchableOpacity
       style={
         completed
-          ? [styles.container, { borderColor: "#427bf5" }]
+          ? [styles.container, { backgroundColor: "#427bf5" }]
           : important
-          ? [styles.container, { borderColor: "#ff8c00" }]
-          : [styles.container]
+          ? [
+              styles.container,
+              { borderColor: "#f59e0b", backgroundColor: "#f59e0b" },
+            ]
+          : [styles.container, { borderWidth: 2 }]
       }
       onPress={() => handler(id)}
     >
       {completed ? (
-        <View style={[styles.circle, { backgroundColor: "#427bf5" }]}>
-          <Ionicons name="checkmark-outline" size={25} color="#fff" />
+        <View style={[styles.circle, { backgroundColor: "#fff" }]}>
+          <Ionicons name="checkmark-outline" size={25} color="#427bf5" />
         </View>
       ) : important ? (
-        <View style={[styles.circle, { backgroundColor: "#ff8c00" }]}>
-          <Ionicons name="alert-outline" size={20} color="#fff" />
+        <View style={[styles.circle, { backgroundColor: "#fff" }]}>
+          <Ionicons name="alert-outline" size={20} color="#f59e0b" />
         </View>
       ) : (
         <View style={styles.circle}>
           <Ionicons name="reader-outline" size={25} color="#3b3b3b" />
         </View>
       )}
-      <Text style={styles.title}>{title}</Text>
+      <Text
+        style={
+          completed
+            ? [styles.title, { color: "#fff" }]
+            : important
+            ? [styles.title, { color: "#fff" }]
+            : [styles.title]
+        }
+      >
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -36,7 +49,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: 50,
-    borderWidth: 2,
     borderRadius: 5,
     paddingLeft: 10,
     paddingRight: 10,
