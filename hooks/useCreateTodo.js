@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { addProjectTask } from "../store/myProjects/myProjectsSlice";
 import { addTaskStorage } from "../utils/dataStorage";
@@ -7,7 +8,6 @@ const useCreateTodo = (navigation, route) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isEnabled, setIsEnabled] = useState(false);
-  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -20,16 +20,10 @@ const useCreateTodo = (navigation, route) => {
     const day = date.getDate();
 
     if (title.length === 0 || description.length === 0) {
-      setError("Todos los campos son obligatorios");
-      setTimeout(() => {
-        setError("");
-      }, 5000);
+      Alert.alert("Error", "Todos los campos son obligatorios");
     } else {
       if (title.length > 25) {
-        setError("El titulo no debe superar los 25 caracteres");
-        setTimeout(() => {
-          setError("");
-        }, 5000);
+        Alert.alert("Error", "El titulo no debe superar los 25 caracteres");
       } else {
         const task = {
           projectId: route.params.projectId,
@@ -50,7 +44,6 @@ const useCreateTodo = (navigation, route) => {
     title,
     description,
     isEnabled,
-    error,
     setTitle,
     setDescription,
     setIsEnabled,

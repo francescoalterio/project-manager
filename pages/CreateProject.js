@@ -1,5 +1,4 @@
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import ErrorAlert from "../components/ErrorAlert";
 import useCreateProject from "../hooks/useCreateProject";
 
 const CreateProject = ({ navigation }) => {
@@ -8,7 +7,6 @@ const CreateProject = ({ navigation }) => {
     description,
     version,
     author,
-    error,
     setTitle,
     setDescription,
     setAuthor,
@@ -18,36 +16,38 @@ const CreateProject = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text>Nombre del proyecto:</Text>
-        <TextInput
-          placeholder="Mi Proyecto"
-          value={title}
-          onChangeText={(text) => setTitle(text)}
-        />
-        <Text>Version:</Text>
-        <TextInput
-          placeholder="1.0.0"
-          value={version}
-          onChangeText={(text) => setVersion(text)}
-        />
-        <Text>Autor:</Text>
-        <TextInput
-          placeholder="Dan Abramov"
-          value={author}
-          onChangeText={(text) => setAuthor(text)}
-        />
-        <Text>Descripción:</Text>
-        <TextInput
-          placeholder="Descripcion del proyecto"
-          value={description}
-          onChangeText={(text) => setDescription(text)}
-        />
-      </View>
-      <View>
+      <Text style={styles.field}>Nombre del proyecto:</Text>
+      <TextInput
+        placeholder="Mi Proyecto"
+        value={title}
+        onChangeText={(text) => setTitle(text)}
+        style={styles.inputTitle}
+      />
+      <Text style={styles.field}>Version:</Text>
+      <TextInput
+        placeholder="1.0.0"
+        value={version}
+        onChangeText={(text) => setVersion(text)}
+        style={styles.inputSmall}
+      />
+      <Text style={styles.field}>Autor:</Text>
+      <TextInput
+        placeholder="Dan Abramov"
+        value={author}
+        onChangeText={(text) => setAuthor(text)}
+        style={styles.inputSmall}
+      />
+      <Text style={styles.field}>Descripción:</Text>
+      <TextInput
+        multiline={true}
+        placeholder="Descripcion del proyecto"
+        value={description}
+        onChangeText={(text) => setDescription(text)}
+        style={styles.inputDescription}
+      />
+      <View style={styles.buttonBox}>
         <Button title="Crear" onPress={handleCreate} />
       </View>
-      {error ? <ErrorAlert error={error} /> : undefined}
     </View>
   );
 };
@@ -55,6 +55,40 @@ const CreateProject = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
+  },
+  field: {
+    marginBottom: 10,
+    fontSize: 17,
+  },
+  inputTitle: {
+    width: "100%",
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingLeft: 10,
+  },
+  inputSmall: {
+    width: "50%",
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingLeft: 10,
+  },
+  inputDescription: {
+    width: "100%",
+    height: "50%",
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    textAlignVertical: "top",
+    padding: 10,
+  },
+  buttonBox: {
+    marginTop: 10,
+    flex: 1,
+    justifyContent: "flex-end",
+    marginBottom: 10,
   },
 });
 

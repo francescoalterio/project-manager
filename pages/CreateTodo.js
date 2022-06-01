@@ -7,7 +7,6 @@ import {
   StyleSheet,
 } from "react-native";
 
-import ErrorAlert from "../components/ErrorAlert";
 import useCreateTodo from "../hooks/useCreateTodo";
 
 const CreateTodo = ({ navigation, route }) => {
@@ -15,7 +14,6 @@ const CreateTodo = ({ navigation, route }) => {
     title,
     description,
     isEnabled,
-    error,
     setTitle,
     setDescription,
     addTaskHandler,
@@ -54,7 +52,6 @@ const CreateTodo = ({ navigation, route }) => {
       <View style={styles.buttonBox}>
         <Button title="Agregar Tarea" onPress={addTaskHandler} />
       </View>
-      {error ? <ErrorAlert error={error} /> : undefined}
     </View>
   );
 };
@@ -66,7 +63,7 @@ const styles = StyleSheet.create({
   },
   field: {
     marginBottom: 10,
-    fontSize: 20,
+    fontSize: 17,
   },
   inputTitle: {
     width: "100%",
@@ -78,10 +75,10 @@ const styles = StyleSheet.create({
   },
   inputDescription: {
     width: "100%",
-    height: "50%",
+    height: "60%",
     borderColor: "gray",
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 20,
     textAlignVertical: "top",
     padding: 10,
   },
@@ -97,7 +94,7 @@ const styles = StyleSheet.create({
   buttonBox: {
     marginTop: 10,
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-end",
     marginBottom: 10,
   },
 });

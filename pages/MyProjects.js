@@ -24,6 +24,8 @@ const MyProjects = () => {
             />
           )}
           keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         />
       </View>
     </View>

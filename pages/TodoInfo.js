@@ -102,14 +102,13 @@ const styles = StyleSheet.create({
   },
   field: {
     marginBottom: 10,
-    fontSize: 20,
+    fontSize: 17,
   },
   inputTitle: {
     width: "100%",
     height: 40,
     borderColor: "gray",
     borderWidth: 1,
-    marginBottom: 10,
     paddingLeft: 10,
   },
   inputDescription: {
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
     height: "50%",
     borderColor: "gray",
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 20,
     textAlignVertical: "top",
     padding: 10,
   },
@@ -128,7 +127,6 @@ const styles = StyleSheet.create({
   },
   switch: {
     marginLeft: 10,
-    marginBottom: 10,
   },
   buttonBox: {
     flex: 1,

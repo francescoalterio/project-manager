@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Alert } from "react-native";
 import { addDataStorage } from "../utils/dataStorage";
 import { useDispatch } from "react-redux";
 import { addProject } from "../store/myProjects/myProjectsSlice";
@@ -8,32 +9,19 @@ const useCreateProject = (navigation) => {
   const [description, setDescription] = useState("");
   const [version, setVersion] = useState("");
   const [author, setAuthor] = useState("");
-  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
   const handleCreate = () => {
     if (title.length === 0 || description.length === 0 || author.length === 0) {
-      setError("Todos los campos son obligatorios");
-      setTimeout(() => {
-        setError("");
-      }, 5000);
+      Alert.alert("Error", "Todos los campos son obligatorios");
     } else {
       if (title.length > 20) {
-        setError("El titulo no debe superar los 20 caracteres");
-        setTimeout(() => {
-          setError("");
-        }, 5000);
+        Alert.alert("Error", "El titulo no debe superar los 20 caracteres");
       } else if (version.length > 9) {
-        setError("La version no debe superar los 9 caracteres");
-        setTimeout(() => {
-          setError("");
-        }, 5000);
+        Alert.alert("Error", "La version no debe superar los 9 caracteres");
       } else if (author.length > 15) {
-        setError("el autor no debe superar los 15 caracteres");
-        setTimeout(() => {
-          setError("");
-        }, 5000);
+        Alert.alert("Error", "el autor no debe superar los 15 caracteres");
       } else {
         const date = new Date();
         const year = date.getFullYear();
@@ -62,11 +50,9 @@ const useCreateProject = (navigation) => {
     description,
     version,
     author,
-    error,
     setTitle,
     setDescription,
     setAuthor,
-    setError,
     setVersion,
     handleCreate,
   };

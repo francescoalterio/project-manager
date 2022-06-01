@@ -1,61 +1,18 @@
-import { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Button, Alert } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { View, Text, StyleSheet, Button } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import ProjectTasks from "./ProjectTasks";
 import ProjectTasksCompleted from "./ProjectTasksCompleted";
 import ProjectInfo from "./ProjectInfo";
-import { deleteProject } from "../store/myProjects/myProjectsSlice";
-import { addDataStorage, deleteProjectStorage } from "../utils/dataStorage";
-import { addCompletedProject } from "../store/myCompletedProjects/myCompletedProjectsSlice";
+import useProject from "../hooks/useProject";
 
 const Project = ({ route, navigation }) => {
-  const projects = useSelector((state) => state.myProjects.value);
-  const [project, setProject] = useState({});
-
   const ProjectTopTab = createMaterialTopTabNavigator();
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    setProject(projects.find((project) => project.id === route.params.id));
-  }, [projects]);
-
-  const handleDeleteProject = () => {
-    Alert.alert("Eliminar proyecto", "¿Estás seguro/a?", [
-      { text: "Cancelar" },
-      {
-        text: "Eliminar",
-        onPress: () => {
-          navigation.navigate("Mis Proyectos Page");
-          dispatch(deleteProject(project.id));
-          deleteProjectStorage(project.id);
-        },
-      },
-    ]);
-  };
-
-  const handleCompleteProject = () => {
-    Alert.alert("Completar proyecto", "¿Estás seguro/a?", [
-      { text: "Cancelar" },
-      {
-        text: "Completar",
-        onPress: () => {
-          navigation.navigate("Mis Proyectos Page");
-          dispatch(
-            addCompletedProject({ ...project, completed: true, id: Date.now() })
-          );
-          dispatch(deleteProject(project.id));
-          addDataStorage("myCompletedProjects", {
-            ...project,
-            completed: true,
-          });
-          deleteProjectStorage(project.id);
-        },
-      },
-    ]);
-  };
+  const { project, handleCompleteProject, handleDeleteProject } = useProject(
+    navigation,
+    route
+  );
 
   return (
     <View style={styles.container}>
