@@ -30,6 +30,7 @@ export default function App() {
 
   /*React.useEffect(() => {
     AsyncStorage.removeItem("myProjects");
+    AsyncStorage.removeItem("myCompletedProjects");
     AsyncStorage.removeItem("myTasks");
   }, []);*/
 
