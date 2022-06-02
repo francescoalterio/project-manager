@@ -1,7 +1,7 @@
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import useCreateProject from "../hooks/useCreateProject";
 
-const CreateProject = ({ navigation }) => {
+const CreateProject = ({ navigation, route }) => {
   const {
     title,
     description,
@@ -12,7 +12,8 @@ const CreateProject = ({ navigation }) => {
     setAuthor,
     setVersion,
     handleCreate,
-  } = useCreateProject(navigation);
+    handleEdit,
+  } = useCreateProject(navigation, route);
 
   return (
     <View style={styles.container}>
@@ -46,7 +47,11 @@ const CreateProject = ({ navigation }) => {
         style={styles.inputDescription}
       />
       <View style={styles.buttonBox}>
-        <Button title="Crear" onPress={handleCreate} />
+        {route.params.edit ? (
+          <Button title="Editar" onPress={handleEdit} />
+        ) : (
+          <Button title="Crear" onPress={handleCreate} />
+        )}
       </View>
     </View>
   );

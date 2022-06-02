@@ -1,18 +1,20 @@
 import { View, Text, StyleSheet, Button } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import ProjectTasks from "./ProjectTasks";
-import ProjectTasksCompleted from "./ProjectTasksCompleted";
+import Tasks from "./Tasks";
+import TasksCompleted from "./TasksCompleted";
 import ProjectInfo from "./ProjectInfo";
 import useProject from "../hooks/useProject";
 
 const Project = ({ route, navigation }) => {
   const ProjectTopTab = createMaterialTopTabNavigator();
 
-  const { project, handleCompleteProject, handleDeleteProject } = useProject(
-    navigation,
-    route
-  );
+  const {
+    project,
+    handleCompleteProject,
+    handleDeleteProject,
+    handleEditProject,
+  } = useProject(navigation, route);
 
   return (
     <View style={styles.container}>
@@ -35,15 +37,19 @@ const Project = ({ route, navigation }) => {
               <Text style={[styles.extraInfo]}>{project.author}</Text>
             </View>
           </View>
+
+          <View style={styles.boxButtons}>
+            <Button title="Editar proyecto" onPress={handleEditProject} />
+            <Button
+              title="Eliminar proyecto"
+              color="#ff3636"
+              onPress={handleDeleteProject}
+            />
+          </View>
           <Button
             title="Completar proyecto"
             color="#228b22"
             onPress={handleCompleteProject}
-          />
-          <Button
-            title="Eliminar proyecto"
-            color="#ff3636"
-            onPress={handleDeleteProject}
           />
         </View>
       </View>
@@ -52,14 +58,14 @@ const Project = ({ route, navigation }) => {
           name="Proyecto Tareas"
           options={{ title: "Tareas" }}
         >
-          {() => <ProjectTasks id={project.id} tasks={project.tasks} />}
+          {() => <Tasks id={project.id} tasks={project.tasks} />}
         </ProjectTopTab.Screen>
         <ProjectTopTab.Screen
           name="Proyecto Tareas Completadas"
           options={{ title: "completadas" }}
         >
           {() => (
-            <ProjectTasksCompleted
+            <TasksCompleted
               id={project.id}
               completedTasks={project.completedTasks}
             />
@@ -114,6 +120,10 @@ const styles = StyleSheet.create({
   extraInfo: {
     fontSize: 18,
     color: "#3b3b3b",
+  },
+  boxButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 

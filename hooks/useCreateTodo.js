@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { addProjectTask } from "../store/myProjects/myProjectsSlice";
+import { addTask } from "../store/myTasks/myTasksSlice";
 import { addTaskStorage } from "../utils/dataStorage";
 
 const useCreateTodo = (navigation, route) => {
@@ -25,17 +26,30 @@ const useCreateTodo = (navigation, route) => {
       if (title.length > 25) {
         Alert.alert("Error", "El titulo no debe superar los 25 caracteres");
       } else {
-        const task = {
-          projectId: route.params.projectId,
-          id: Date.now(),
-          title,
-          description,
-          important: isEnabled,
-          date: `${day}-${month}-${year}`,
-        };
-        addTaskStorage("myProjects", task, "tasks");
-        dispatch(addProjectTask(task));
-        navigation.navigate("Proyecto Page", { id: route.params.projectId });
+        if (route.params.projectId === "myTasks") {
+          const task = {
+            id: Date.now(),
+            title,
+            description,
+            important: isEnabled,
+            date: `${day}-${month}-${year}`,
+          };
+          addTaskStorage("myTasks", task, "tasks");
+          dispatch(addTask(task));
+          navigation.navigate("Mis Tareas Page");
+        } else {
+          const task = {
+            projectId: route.params.projectId,
+            id: Date.now(),
+            title,
+            description,
+            important: isEnabled,
+            date: `${day}-${month}-${year}`,
+          };
+          addTaskStorage("myProjects", task, "tasks");
+          dispatch(addProjectTask(task));
+          navigation.navigate("Proyecto Page", { id: route.params.projectId });
+        }
       }
     }
   };

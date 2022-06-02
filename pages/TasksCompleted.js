@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import TodoList from "../components/TodoList";
 
-const ProjectTasksCompleted = ({ id, completedTasks }) => {
+const TasksCompleted = ({ id, completedTasks }) => {
   return (
     <View>
       <TodoList projectId={id} tasks={completedTasks} completedTasks />
@@ -9,4 +9,4 @@ const ProjectTasksCompleted = ({ id, completedTasks }) => {
   );
 };
 
-export default ProjectTasksCompleted;
+export default TasksCompleted;

@@ -28,7 +28,7 @@ const useInizializedApp = () => {
       } else {
         await addDataStorage("myProjects", []);
         await addDataStorage("myCompletedProjects", []);
-        await addDataStorage("myTasks", {});
+        await addDataStorage("myTasks", { tasks: [], completedTasks: [] });
         await setSettingsDataStore();
       }
     };

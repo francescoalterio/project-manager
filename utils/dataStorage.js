@@ -9,6 +9,19 @@ export const deleteProjectStorage = async (projectId) => {
   await AsyncStorage.setItem("myProjects", JSON.stringify(newProjects));
 };
 
+export const editProjectStorage = async (project) => {
+  const projects = await AsyncStorage.getItem("myProjects");
+  const projectsJson = JSON.parse(projects);
+  const newProjects = projectsJson.map((projectJson) => {
+    if (projectJson.id === project.id) {
+      return project;
+    } else {
+      return projectJson;
+    }
+  });
+  await AsyncStorage.setItem("myProjects", JSON.stringify(newProjects));
+};
+
 export const getDataStorage = async (key) => {
   const res = await AsyncStorage.getItem(key);
   const data = await JSON.parse(res);
@@ -49,6 +62,23 @@ export const addTaskStorage = async (key, value, arrayName) => {
       }
     });
     await AsyncStorage.setItem(key, JSON.stringify(newData));
+  } else if (key === "myTasks" && arrayName === "tasks") {
+    const res = await AsyncStorage.getItem(key);
+    const data = JSON.parse(res);
+    const tasks = [...data.tasks];
+    tasks.push(value);
+    console.log(tasks);
+    await AsyncStorage.setItem(
+      key,
+      JSON.stringify({ tasks, completedTasks: data.completedTasks })
+    );
+  } else if (key === "myTasks" && arrayName === "completedTasks") {
+    const res = await AsyncStorage.getItem(key);
+    const data = JSON.parse(res);
+    const completedTasks = [...data.completedTasks];
+    completedTasks.push(value);
+    const tasks = data.tasks.filter((task) => task.id !== value.id);
+    await AsyncStorage.setItem(key, JSON.stringify({ tasks, completedTasks }));
   }
 };
 

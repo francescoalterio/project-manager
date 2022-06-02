@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import TodoList from "../components/TodoList";
 
-const ProjectTasks = ({ id, tasks }) => {
+const Tasks = ({ id, tasks }) => {
   return (
     <View>
       <TodoList projectId={id} tasks={tasks} />
@@ -10,4 +10,4 @@ const ProjectTasks = ({ id, tasks }) => {
   );
 };
 
-export default ProjectTasks;
+export default Tasks;

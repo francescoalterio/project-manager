@@ -74,7 +74,7 @@ export default function App() {
                         component={MyProjects}
                         options={{
                           headerRight: (props) => (
-                            <BtnCreateProject {...props} />
+                            <BtnCreateProject content="crear" {...props} />
                           ),
                           title: "Mis Proyectos",
                         }}
@@ -117,11 +117,25 @@ export default function App() {
               >
                 {() => (
                   <TaskStack.Navigator>
-                    <TaskStack.Screen
-                      name="Mis Tareas Page"
-                      component={MyTasks}
-                      options={{ title: "Mis Tareas" }}
-                    />
+                    <TaskStack.Group>
+                      <TaskStack.Screen
+                        name="Mis Tareas Page"
+                        component={MyTasks}
+                        options={{ title: "Mis Tareas" }}
+                      />
+                    </TaskStack.Group>
+                    <TaskStack.Group screenOptions={{ presentation: "modal" }}>
+                      <TaskStack.Screen
+                        name="Tasks Create Todo"
+                        component={CreateTodo}
+                        options={{ title: "Agregar Tarea" }}
+                      />
+                      <TaskStack.Screen
+                        name="Tasks Todo Info"
+                        component={TodoInfo}
+                        options={{ title: "Mi Tarea" }}
+                      />
+                    </TaskStack.Group>
                   </TaskStack.Navigator>
                 )}
               </Tab.Screen>

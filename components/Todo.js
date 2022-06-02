@@ -13,7 +13,7 @@ const Todo = ({ id, title, important, handler, completed }) => {
               styles.container,
               { borderColor: "#f59e0b", backgroundColor: "#f59e0b" },
             ]
-          : [styles.container, { borderWidth: 2 }]
+          : [styles.container, { backgroundColor: "#3b3b3b" }]
       }
       onPress={() => handler(id)}
     >
@@ -26,16 +26,16 @@ const Todo = ({ id, title, important, handler, completed }) => {
           <Ionicons name="alert-outline" size={20} color="#f59e0b" />
         </View>
       ) : (
-        <View style={styles.circle}>
-          <Ionicons name="reader-outline" size={25} color="#3b3b3b" />
+        <View style={[styles.circle, { backgroundColor: "#fff" }]}>
+          <Ionicons name="hammer" size={20} color="#3b3b3b" />
         </View>
       )}
       <Text
         style={
           completed
-            ? [styles.title, { color: "#fff" }]
+            ? [styles.title]
             : important
-            ? [styles.title, { color: "#fff" }]
+            ? [styles.title]
             : [styles.title]
         }
       >
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginLeft: 10,
-    color: "#3b3b3b",
+    color: "#fff",
   },
 });
 

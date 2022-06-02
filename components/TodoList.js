@@ -25,11 +25,27 @@ const TodoList = ({ projectId, tasks, completedTasks }) => {
   }, [tasks]);
 
   const createTodoHandler = () => {
-    navigation.navigate("Create Todo", { projectId });
+    if (projectId === "myTasks") {
+      navigation.navigate("Tasks Create Todo", { projectId });
+    } else {
+      navigation.navigate("Create Todo", { projectId });
+    }
   };
 
   const todoInfoHandler = (id) => {
-    navigation.navigate("Todo Info", { projectId, taskId: id, completedTasks });
+    if (projectId === "myTasks") {
+      navigation.navigate("Tasks Todo Info", {
+        projectId,
+        taskId: id,
+        completedTasks,
+      });
+    } else {
+      navigation.navigate("Todo Info", {
+        projectId,
+        taskId: id,
+        completedTasks,
+      });
+    }
   };
 
   return (

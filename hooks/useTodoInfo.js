@@ -15,7 +15,7 @@ import {
 
 const useTodoInfo = (navigation, route) => {
   const task = useSelector((state) => {
-    if (route.params.projectId) {
+    if (route.params.projectId !== "myTasks") {
       const project = state.myProjects.value.find(
         (project) => project.id === route.params.projectId
       );
@@ -23,9 +23,13 @@ const useTodoInfo = (navigation, route) => {
         ? project.completedTasks.find((task) => task.id === route.params.taskId)
         : project.tasks.find((task) => task.id === route.params.taskId);
     } else {
-      return state.tasks.value.tasks.find(
-        (task) => task.id === route.params.taskId
-      );
+      return route.params.completedTasks
+        ? state.myTasks.value.completedTasks.find(
+            (task) => task.id === route.params.taskId
+          )
+        : state.myTasks.value.tasks.find(
+            (task) => task.id === route.params.taskId
+          );
     }
   });
   const [title, setTitle] = useState(task.title);

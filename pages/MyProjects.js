@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import BtnProject from "../components/BtnProject";
 
 const MyProjects = () => {
@@ -8,6 +8,8 @@ const MyProjects = () => {
   const completedProjects = useSelector(
     (state) => state.myCompletedProjects.value
   );
+
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>

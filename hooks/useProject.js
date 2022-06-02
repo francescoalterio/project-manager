@@ -51,7 +51,19 @@ const useProject = (navigation, route) => {
     ]);
   };
 
-  return { project, handleDeleteProject, handleCompleteProject };
+  const handleEditProject = () => {
+    navigation.navigate("Crear Proyecto Page", {
+      project: project,
+      edit: true,
+    });
+  };
+
+  return {
+    project,
+    handleDeleteProject,
+    handleCompleteProject,
+    handleEditProject,
+  };
 };
 
 export default useProject;
