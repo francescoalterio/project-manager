@@ -8,6 +8,11 @@ import {
   editProjectTask,
 } from "../store/myProjects/myProjectsSlice";
 import {
+  addCompletedTask,
+  deleteTask,
+  editTask,
+} from "../store/myTasks/myTasksSlice";
+import {
   addTaskStorage,
   deleteTaskDataStorage,
   editTaskDataStorage,
@@ -46,19 +51,33 @@ const useTodoInfo = (navigation, route) => {
       {
         text: "Eliminar",
         onPress: () => {
-          const data = {
-            projectId: route.params.projectId,
-            taskId: route.params.taskId,
-          };
-          navigation.navigate("Proyecto Page", {
-            id: route.params.projectId,
-          });
-          if (!isCompleted) {
-            dispatch(deleteProjectTask(data));
-            deleteTaskDataStorage("myProjects", data, "tasks");
+          if (route.params.projectId !== "myTasks") {
+            const data = {
+              projectId: route.params.projectId,
+              taskId: route.params.taskId,
+            };
+            navigation.navigate("Proyecto Page", {
+              id: route.params.projectId,
+            });
+            if (!isCompleted) {
+              dispatch(deleteProjectTask(data));
+              deleteTaskDataStorage("myProjects", data, "tasks");
+            } else {
+              dispatch(deleteCompletedProjectTask(data));
+              deleteTaskDataStorage("myProjects", data, "completedTasks");
+            }
           } else {
-            dispatch(deleteCompletedProjectTask(data));
-            deleteTaskDataStorage("myProjects", data, "completedTasks");
+            const data = {
+              taskId: route.params.taskId,
+            };
+            navigation.navigate("Mis Tareas Page");
+            if (!isCompleted) {
+              dispatch(deleteTask(data));
+              deleteTaskDataStorage("myTasks", data, "tasks");
+            } else {
+              dispatch(deleteTask(data));
+              deleteTaskDataStorage("myTasks", data, "completedTasks");
+            }
           }
         },
       },
@@ -71,15 +90,24 @@ const useTodoInfo = (navigation, route) => {
       {
         text: "Completar",
         onPress: () => {
-          const data = {
-            projectId: route.params.projectId,
-            taskId: route.params.taskId,
-          };
-          navigation.navigate("Proyecto Page", {
-            id: route.params.projectId,
-          });
-          dispatch(addProjectCompletedTask(data));
-          addTaskStorage("myProjects", task, "completedTasks");
+          if (route.params.projectId !== "myTasks") {
+            const data = {
+              projectId: route.params.projectId,
+              taskId: route.params.taskId,
+            };
+            navigation.navigate("Proyecto Page", {
+              id: route.params.projectId,
+            });
+            dispatch(addProjectCompletedTask(data));
+            addTaskStorage("myProjects", task, "completedTasks");
+          } else {
+            const data = {
+              taskId: route.params.taskId,
+            };
+            navigation.navigate("Mis Tareas Page");
+            dispatch(addCompletedTask(task));
+            addTaskStorage("myTasks", task, "completedTasks");
+          }
         },
       },
     ]);
@@ -99,21 +127,34 @@ const useTodoInfo = (navigation, route) => {
                 "El titulo no debe superar los 25 caracteres"
               );
             } else {
-              const data = {
-                projectId: route.params.projectId,
-                taskId: route.params.taskId,
-                task: {
+              if (route.params.projectId !== "myTasks") {
+                const data = {
+                  projectId: route.params.projectId,
+                  taskId: route.params.taskId,
+                  task: {
+                    title,
+                    description,
+                    date: task.date,
+                    important: isEnabled,
+                  },
+                };
+                navigation.navigate("Proyecto Page", {
+                  id: route.params.projectId,
+                });
+                dispatch(editProjectTask(data));
+                editTaskDataStorage("myProjects", data);
+              } else {
+                const data = {
                   title,
                   description,
+                  id: route.params.taskId,
                   date: task.date,
                   important: isEnabled,
-                },
-              };
-              navigation.navigate("Proyecto Page", {
-                id: route.params.projectId,
-              });
-              dispatch(editProjectTask(data));
-              editTaskDataStorage("myProjects", data);
+                };
+                navigation.navigate("Mis Tareas Page");
+                dispatch(editTask(data));
+                editTaskDataStorage("myTasks", data);
+              }
             }
           }
         },
