@@ -87,7 +87,7 @@ const Home = ({ navigation }) => {
       <View style={styles.moreActiveProjectsContainer}>
         <View style={styles.moreActiveProjectsBox}>
           <View style={styles.safeAreaBox}>
-            <View>
+            <View style={styles.containerTitle}>
               <View style={styles.boxTitle}>
                 <View style={styles.boxIcon}>
                   <View
@@ -157,10 +157,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#3b3b3b",
   },
+  containerTitle: {
+    width: "96%",
+    alignItems: "center",
+  },
   boxTitle: {
     flexDirection: "row",
     height: 50,
     alignItems: "center",
+    width: "100%",
   },
   boxIcon: {
     width: 40,
