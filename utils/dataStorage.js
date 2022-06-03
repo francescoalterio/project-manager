@@ -67,7 +67,6 @@ export const addTaskStorage = async (key, value, arrayName) => {
     const data = JSON.parse(res);
     const tasks = [...data.tasks];
     tasks.push(value);
-    console.log(tasks);
     await AsyncStorage.setItem(
       key,
       JSON.stringify({ tasks, completedTasks: data.completedTasks })
@@ -107,6 +106,24 @@ export const deleteTaskDataStorage = async (key, value, arrayName) => {
       }
     });
     await AsyncStorage.setItem(key, JSON.stringify(newData));
+  } else if (key === "myTasks" && arrayName === "tasks") {
+    const res = await AsyncStorage.getItem(key);
+    const data = JSON.parse(res);
+    const tasks = data.tasks.filter((task) => task.id !== value.taskId);
+    await AsyncStorage.setItem(
+      key,
+      JSON.stringify({ tasks, completedTasks: data.completedTasks })
+    );
+  } else if (key === "myTasks" && arrayName === "completedTasks") {
+    const res = await AsyncStorage.getItem(key);
+    const data = JSON.parse(res);
+    const completedTasks = data.completedTasks.filter(
+      (task) => task.id !== value.taskId
+    );
+    await AsyncStorage.setItem(
+      key,
+      JSON.stringify({ tasks: data.tasks, completedTasks })
+    );
   }
 };
 
@@ -127,6 +144,21 @@ export const editTaskDataStorage = async (key, value) => {
       }
     });
     AsyncStorage.setItem(key, JSON.stringify(newData));
+  } else if (key === "myTasks") {
+    const res = await AsyncStorage.getItem(key);
+    const data = JSON.parse(res);
+    const tasks = [...data.tasks];
+    tasks.forEach((task) => {
+      if (task.id === value.id) {
+        task.title = value.title;
+        task.description = value.description;
+        task.important = value.important;
+      }
+    });
+    await AsyncStorage.setItem(
+      key,
+      JSON.stringify({ tasks, completedTasks: data.completedTasks })
+    );
   }
 };
 
