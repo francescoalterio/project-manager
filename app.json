@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "project-manager",
-    "slug": "project-manager",
+    "name": "My Manager",
+    "slug": "My Manager",
     "version": "1.0.0",
     "assetBundlePatterns": ["**/*"],
     "plugins": [
