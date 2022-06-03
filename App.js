@@ -139,22 +139,6 @@ export default function App() {
                   </TaskStack.Navigator>
                 )}
               </Tab.Screen>
-              <Tab.Screen
-                name="Configuracion"
-                options={{
-                  headerShown: false,
-                }}
-              >
-                {() => (
-                  <SettingsStack.Navigator>
-                    <SettingsStack.Screen
-                      name="Configuracion Page"
-                      component={Settings}
-                      options={{ title: "Configuracion" }}
-                    />
-                  </SettingsStack.Navigator>
-                )}
-              </Tab.Screen>
             </Tab.Navigator>
           </View>
         </View>
