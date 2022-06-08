@@ -53,7 +53,7 @@ const Home = ({ navigation }) => {
         return b.tasksLength - a.tasksLength;
       }
     );
-    setMoreActiveProjects(projectsWithTasksLengthSorted.slice(0, 5));
+    setMoreActiveProjects(projectsWithTasksLengthSorted.slice(0, 3));
   }, [myProjects, myTasks, myCompletedProjects]);
 
   return (
