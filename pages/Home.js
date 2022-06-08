@@ -53,7 +53,7 @@ const Home = ({ navigation }) => {
         return b.tasksLength - a.tasksLength;
       }
     );
-    setMoreActiveProjects(projectsWithTasksLengthSorted.slice(0, 5));
+    setMoreActiveProjects(projectsWithTasksLengthSorted.slice(0, 3));
   }, [myProjects, myTasks, myCompletedProjects]);
 
   return (
@@ -143,14 +143,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: "96%",
     borderRadius: 5,
-    height: 500,
+    height: 470,
   },
   safeAreaBox: {
     width: "100%",
     alignItems: "center",
+    height: 350,
   },
   safeAreaView: {
     width: "95%",
+    height: "100%",
   },
   title: {
     fontSize: 20,
