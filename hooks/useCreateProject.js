@@ -4,6 +4,8 @@ import { addDataStorage, editProjectStorage } from "../utils/dataStorage";
 import { useDispatch } from "react-redux";
 import { addProject, editProject } from "../store/myProjects/myProjectsSlice";
 
+import { AdMobInterstitial } from "expo-ads-admob";
+
 const useCreateProject = (navigation, route) => {
   const [title, setTitle] = useState(
     route.params.edit ? route.params.project.title : ""
@@ -20,7 +22,7 @@ const useCreateProject = (navigation, route) => {
 
   const dispatch = useDispatch();
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     if (title.length === 0 || description.length === 0 || author.length === 0) {
       Alert.alert("Error", "Todos los campos son obligatorios");
     } else {
@@ -46,6 +48,12 @@ const useCreateProject = (navigation, route) => {
           completedTasks: [],
           date: `${day}-${month}-${year}`,
         };
+
+        //admob
+        AdMobInterstitial.setAdUnitID("ca-app-pub-6947784507365792/3668508384");
+        await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: false });
+        await AdMobInterstitial.showAdAsync();
+
         addDataStorage("myProjects", project);
         dispatch(addProject(project));
         navigation.navigate("Mis Proyectos Page");

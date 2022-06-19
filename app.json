@@ -11,6 +11,11 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "android": {
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-6947784507365792~3313285166"
+      }
+    }
   }
 }
