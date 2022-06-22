@@ -3,6 +3,7 @@ import { Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { addProjectTask } from "../store/myProjects/myProjectsSlice";
 import { addTask } from "../store/myTasks/myTasksSlice";
+import { incrementTenTasks } from "../store/myTenTasks/myTenTasksSlice";
 import { addTaskStorage } from "../utils/dataStorage";
 
 const useCreateTodo = (navigation, route) => {
@@ -26,6 +27,8 @@ const useCreateTodo = (navigation, route) => {
       if (title.length > 25) {
         Alert.alert("Error", "El titulo no debe superar los 25 caracteres");
       } else {
+        //+1 in teenTasks for admob ads
+        dispatch(incrementTenTasks());
         if (route.params.projectId === "myTasks") {
           const task = {
             id: Date.now(),
