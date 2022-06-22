@@ -50,13 +50,23 @@ const useCreateProject = (navigation, route) => {
         };
 
         //admob
-        AdMobInterstitial.setAdUnitID("ca-app-pub-6947784507365792/3668508384");
-        await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: false });
-        await AdMobInterstitial.showAdAsync();
+        try {
+          AdMobInterstitial.setAdUnitID(
+            "ca-app-pub-6947784507365792/3668508384"
+          );
+          await AdMobInterstitial.requestAdAsync({
+            servePersonalizedAds: false,
+          });
+          await AdMobInterstitial.showAdAsync();
 
-        addDataStorage("myProjects", project);
-        dispatch(addProject(project));
-        navigation.navigate("Mis Proyectos Page");
+          addDataStorage("myProjects", project);
+          dispatch(addProject(project));
+          navigation.navigate("Mis Proyectos Page");
+        } catch (err) {
+          addDataStorage("myProjects", project);
+          dispatch(addProject(project));
+          navigation.navigate("Mis Proyectos Page");
+        }
       }
     }
   };
