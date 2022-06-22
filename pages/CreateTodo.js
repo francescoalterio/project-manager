@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   inputDescription: {
     width: "100%",
-    height: "60%",
+    height: "45%",
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 20,

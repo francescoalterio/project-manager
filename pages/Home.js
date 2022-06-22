@@ -138,17 +138,18 @@ const styles = StyleSheet.create({
   moreActiveProjectsContainer: {
     width: "100%",
     alignItems: "center",
+    height: "60%",
   },
   moreActiveProjectsBox: {
     backgroundColor: "#fff",
     width: "96%",
     borderRadius: 5,
-    height: 470,
+    height: "100%",
   },
   safeAreaBox: {
     width: "100%",
     alignItems: "center",
-    height: 350,
+    height: "65%",
   },
   safeAreaView: {
     width: "95%",

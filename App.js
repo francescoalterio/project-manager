@@ -26,7 +26,6 @@ export default function App() {
   const ProjectStack = createNativeStackNavigator();
   const HomeStack = createNativeStackNavigator();
   const TaskStack = createNativeStackNavigator();
-  const SettingsStack = createNativeStackNavigator();
 
   /*React.useEffect(() => {
     AsyncStorage.removeItem("myProjects");

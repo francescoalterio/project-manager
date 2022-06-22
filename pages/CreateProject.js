@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   inputDescription: {
     width: "100%",
-    height: "50%",
+    height: "35%",
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 10,
