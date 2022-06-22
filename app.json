@@ -1,8 +1,13 @@
 {
   "expo": {
-    "name": "My Manager",
-    "slug": "MyManager",
+    "name": "Project Manager",
+    "slug": "ProjectManager",
     "version": "1.0.0",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#545454"
+    },
     "assetBundlePatterns": ["**/*"],
     "plugins": [
       [
@@ -15,6 +20,10 @@
     "android": {
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-6947784507365792~3313285166"
+      },
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
       }
     }
   }
