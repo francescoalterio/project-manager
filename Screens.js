@@ -47,7 +47,7 @@ export default function Screens() {
       // Action after the ad is closed]
       dispatch(resetTenTasks());
     }
-  }, [isClosed, navigation]);
+  }, [isClosed]);
 
   useEffect(() => {
     const admobAds = async () => {
