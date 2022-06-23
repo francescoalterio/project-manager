@@ -35,13 +35,6 @@ export default function Screens() {
     const admobAds = async () => {
       if (myTenTasks === 10) {
         try {
-          AdMobInterstitial.setAdUnitID(
-            "ca-app-pub-6947784507365792/3361789574"
-          );
-          await AdMobInterstitial.requestAdAsync({
-            servePersonalizedAds: false,
-          });
-          await AdMobInterstitial.showAdAsync();
           dispatch(resetTenTasks());
         } catch (err) {
           dispatch(resetTenTasks());

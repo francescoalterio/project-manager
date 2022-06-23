@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import { addDataStorage, editProjectStorage } from "../utils/dataStorage";
 import { useDispatch } from "react-redux";
 import { addProject, editProject } from "../store/myProjects/myProjectsSlice";
 
-import { AdMobInterstitial } from "expo-ads-admob";
+import { useInterstitialAd, TestIds } from "react-native-google-mobile-ads";
 
 const useCreateProject = (navigation, route) => {
   const [title, setTitle] = useState(
@@ -21,6 +21,26 @@ const useCreateProject = (navigation, route) => {
   );
 
   const dispatch = useDispatch();
+
+  //ads
+  const { isLoaded, isClosed, load, show } = useInterstitialAd(
+    TestIds.INTERSTITIAL,
+    {
+      requestNonPersonalizedAdsOnly: true,
+    }
+  );
+
+  useEffect(() => {
+    // Start loading the interstitial straight away
+    load();
+  }, [load]);
+
+  useEffect(() => {
+    if (isClosed) {
+      // Action after the ad is closed
+      navigation.navigate("Mis Proyectos Page");
+    }
+  }, [isClosed, navigation]);
 
   const handleCreate = async () => {
     if (title.length === 0 || description.length === 0 || author.length === 0) {
@@ -49,22 +69,12 @@ const useCreateProject = (navigation, route) => {
           date: `${day}-${month}-${year}`,
         };
 
-        //admob
-        try {
-          AdMobInterstitial.setAdUnitID(
-            "ca-app-pub-6947784507365792/3668508384"
-          );
-          await AdMobInterstitial.requestAdAsync({
-            servePersonalizedAds: false,
-          });
-          await AdMobInterstitial.showAdAsync();
-
-          addDataStorage("myProjects", project);
-          dispatch(addProject(project));
-          navigation.navigate("Mis Proyectos Page");
-        } catch (err) {
-          addDataStorage("myProjects", project);
-          dispatch(addProject(project));
+        addDataStorage("myProjects", project);
+        dispatch(addProject(project));
+        if (isLoaded) {
+          show();
+        } else {
+          // No advert ready to show yet
           navigation.navigate("Mis Proyectos Page");
         }
       }
