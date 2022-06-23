@@ -21,6 +21,10 @@ import { resetTenTasks } from "./store/myTenTasks/myTenTasksSlice";
 
 import { useInterstitialAd, TestIds } from "react-native-google-mobile-ads";
 
+const adUnitId = __DEV__
+  ? TestIds.INTERSTITIAL
+  : "ca-app-pub-6947784507365792/3361789574";
+
 export default function Screens() {
   const Tab = createBottomTabNavigator();
   const ProjectStack = createNativeStackNavigator();
@@ -30,12 +34,9 @@ export default function Screens() {
   const myTenTasks = useSelector((state) => state.myTenTasks.value);
   const dispatch = useDispatch();
 
-  const { isLoaded, isClosed, load, show } = useInterstitialAd(
-    "ca-app-pub-6947784507365792/3361789574",
-    {
-      requestNonPersonalizedAdsOnly: true,
-    }
-  );
+  const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitId, {
+    requestNonPersonalizedAdsOnly: true,
+  });
 
   useEffect(() => {
     // Start loading the interstitial straight away

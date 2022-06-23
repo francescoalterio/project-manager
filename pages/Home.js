@@ -6,6 +6,16 @@ import { useSelector } from "react-redux";
 import BtnProject from "../components/BtnProject";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
+
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : "ca-app-pub-6947784507365792/3916963975";
+
 const Home = ({ navigation }) => {
   useInizializedApp();
   const myProjects = useSelector((state) => state.myProjects.value);
@@ -58,6 +68,13 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      />
       <View style={styles.infoContainer}>
         <BoxInfo
           title="Proyectos Activos"

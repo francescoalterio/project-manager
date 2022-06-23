@@ -6,6 +6,10 @@ import { addProject, editProject } from "../store/myProjects/myProjectsSlice";
 
 import { useInterstitialAd, TestIds } from "react-native-google-mobile-ads";
 
+const adUnitId = __DEV__
+  ? TestIds.INTERSTITIAL
+  : "ca-app-pub-6947784507365792/3668508384";
+
 const useCreateProject = (navigation, route) => {
   const [title, setTitle] = useState(
     route.params.edit ? route.params.project.title : ""
@@ -23,12 +27,9 @@ const useCreateProject = (navigation, route) => {
   const dispatch = useDispatch();
 
   //ads
-  const { isLoaded, isClosed, load, show } = useInterstitialAd(
-    "ca-app-pub-6947784507365792/3668508384",
-    {
-      requestNonPersonalizedAdsOnly: true,
-    }
-  );
+  const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitId, {
+    requestNonPersonalizedAdsOnly: true,
+  });
 
   useEffect(() => {
     // Start loading the interstitial straight away
