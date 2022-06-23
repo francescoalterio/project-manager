@@ -19,11 +19,10 @@
     ],
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "permissions": ["android.permission.RECORD_AUDIO"],
-      "package": "app.projectmanager.client"
+      "permissions": ["android.permission.RECORD_AUDIO"]
     }
   },
   "react-native-google-mobile-ads": {

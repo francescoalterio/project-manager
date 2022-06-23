@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -9,18 +9,17 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Home from "./pages/Home";
 import MyProjects from "./pages/MyProjects";
-import Settings from "./pages/Settings";
 import MyTasks from "./pages/MyTasks";
 import { setIconsNavbar } from "./utils/setIconsNavbar";
-import store from "./store";
 import { BtnCreateProject } from "./components/BtnCreateProject";
 import CreateProject from "./pages/CreateProject";
 import Project from "./pages/Project";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import CreateTodo from "./pages/CreateTodo";
 import TodoInfo from "./pages/TodoInfo";
 import { resetTenTasks } from "./store/myTenTasks/myTenTasksSlice";
+
+import { useInterstitialAd, TestIds } from "react-native-google-mobile-ads";
 
 export default function Screens() {
   const Tab = createBottomTabNavigator();
@@ -31,12 +30,31 @@ export default function Screens() {
   const myTenTasks = useSelector((state) => state.myTenTasks.value);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  const { isLoaded, isClosed, load, show } = useInterstitialAd(
+    "ca-app-pub-6947784507365792/3361789574",
+    {
+      requestNonPersonalizedAdsOnly: true,
+    }
+  );
+
+  useEffect(() => {
+    // Start loading the interstitial straight away
+    load();
+  }, [load]);
+
+  useEffect(() => {
+    if (isClosed) {
+      // Action after the ad is closed]
+      dispatch(resetTenTasks());
+    }
+  }, [isClosed, navigation]);
+
+  useEffect(() => {
     const admobAds = async () => {
       if (myTenTasks === 10) {
-        try {
-          dispatch(resetTenTasks());
-        } catch (err) {
+        if (isLoaded) {
+          show();
+        } else {
           dispatch(resetTenTasks());
         }
       }

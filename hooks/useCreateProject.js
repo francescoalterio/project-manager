@@ -24,7 +24,7 @@ const useCreateProject = (navigation, route) => {
 
   //ads
   const { isLoaded, isClosed, load, show } = useInterstitialAd(
-    TestIds.INTERSTITIAL,
+    "ca-app-pub-6947784507365792/3668508384",
     {
       requestNonPersonalizedAdsOnly: true,
     }
