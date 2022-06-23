@@ -12,9 +12,10 @@ import {
   TestIds,
 } from "react-native-google-mobile-ads";
 
-const adUnitId = __DEV__
+/*const adUnitId = __DEV__
   ? TestIds.BANNER
-  : "ca-app-pub-6947784507365792/3916963975";
+  : "ca-app-pub-6947784507365792/3916963975";*/
+const adUnitId = TestIds.BANNER;
 
 const Home = ({ navigation }) => {
   useInizializedApp();

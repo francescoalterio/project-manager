@@ -6,9 +6,10 @@ import { addProject, editProject } from "../store/myProjects/myProjectsSlice";
 
 import { useInterstitialAd, TestIds } from "react-native-google-mobile-ads";
 
-const adUnitId = __DEV__
+/*const adUnitId = __DEV__
   ? TestIds.INTERSTITIAL
-  : "ca-app-pub-6947784507365792/3668508384";
+  : "ca-app-pub-6947784507365792/3668508384";*/
+const adUnitId = TestIds.INTERSTITIAL;
 
 const useCreateProject = (navigation, route) => {
   const [title, setTitle] = useState(
