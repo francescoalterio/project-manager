@@ -1,4 +1,4 @@
-package app.projectmanager.client;
+package com.francescox5.projectmanager;
 
 import android.os.Build;
 import android.os.Bundle;

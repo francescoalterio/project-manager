@@ -1,4 +1,4 @@
-package app.projectmanager.client.newarchitecture.components;
+package com.francescox5.projectmanager.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

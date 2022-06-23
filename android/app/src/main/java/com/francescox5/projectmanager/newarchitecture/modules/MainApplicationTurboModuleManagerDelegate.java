@@ -1,4 +1,4 @@
-package app.projectmanager.client.newarchitecture.modules;
+package com.francescox5.projectmanager.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
