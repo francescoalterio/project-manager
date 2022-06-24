@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   flatlist: {
-    marginBottom: 20,
+    marginBottom: 40,
   },
   buttonContainer: {
     marginBottom: 20,
