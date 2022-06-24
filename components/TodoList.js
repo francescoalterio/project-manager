@@ -86,11 +86,11 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "95%",
-    paddingBottom: 20,
+    paddingBottom: 50,
     paddingTop: 20,
   },
   flatlist: {
-    marginBottom: 50,
+    marginBottom: 20,
   },
   buttonContainer: {
     marginBottom: 20,
