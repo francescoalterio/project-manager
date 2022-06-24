@@ -21,10 +21,9 @@ import { resetTenTasks } from "./store/myTenTasks/myTenTasksSlice";
 
 import { useInterstitialAd, TestIds } from "react-native-google-mobile-ads";
 
-const adUnitId = TestIds.INTERSTITIAL;
-/*const adUnitId = __DEV__
+const adUnitId = __DEV__
   ? TestIds.INTERSTITIAL
-  : "ca-app-pub-6947784507365792/3361789574";*/
+  : "ca-app-pub-6947784507365792/3361789574";
 
 export default function Screens() {
   const Tab = createBottomTabNavigator();

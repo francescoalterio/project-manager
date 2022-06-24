@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, SafeAreaView, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  FlatList,
+  ScrollView,
+} from "react-native";
 import BoxInfo from "../components/BoxInfo";
 import useInizializedApp from "../hooks/useInizializedApp";
 import { useSelector } from "react-redux";
 import BtnProject from "../components/BtnProject";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
-import {
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-} from "react-native-google-mobile-ads";
-
-/*const adUnitId = __DEV__
-  ? TestIds.BANNER
-  : "ca-app-pub-6947784507365792/3916963975";*/
-const adUnitId = TestIds.BANNER;
 
 const Home = ({ navigation }) => {
   useInizializedApp();
@@ -69,76 +65,73 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <BannerAd
-        unitId={adUnitId}
-        size={BannerAdSize.FULL_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
-        }}
-      />
-      <View style={styles.infoContainer}>
-        <BoxInfo
-          title="Proyectos Activos"
-          color="#169118"
-          icon="flask"
-          data={activeProject}
-        />
-        <BoxInfo
-          title="Tareas por completar"
-          color="#8c00ff"
-          icon="hammer"
-          data={tasksToComplete}
-        />
-        <BoxInfo
-          title="Tareas Importantes"
-          color="#ff3d3d"
-          icon="alert"
-          data={importantTasks}
-        />
-        <BoxInfo
-          title="Proyectos Completados"
-          color="#4287f5"
-          icon="checkmark"
-          data={completedProjects}
-        />
-      </View>
-      <View style={styles.moreActiveProjectsContainer}>
-        <View style={styles.moreActiveProjectsBox}>
-          <View style={styles.safeAreaBox}>
-            <View style={styles.containerTitle}>
-              <View style={styles.boxTitle}>
-                <View style={styles.boxIcon}>
-                  <View
-                    style={[
-                      styles.circle,
-                      { backgroundColor: "#ff8c00" + "26" },
-                    ]}
-                  >
-                    <Ionicons name="flame" size={20} color="#ff8c00" />
+      <SafeAreaView>
+        <ScrollView>
+          <View style={styles.infoContainer}>
+            <BoxInfo
+              title="Proyectos Activos"
+              color="#169118"
+              icon="flask"
+              data={activeProject}
+            />
+            <BoxInfo
+              title="Tareas por completar"
+              color="#8c00ff"
+              icon="hammer"
+              data={tasksToComplete}
+            />
+            <BoxInfo
+              title="Tareas Importantes"
+              color="#ff3d3d"
+              icon="alert"
+              data={importantTasks}
+            />
+            <BoxInfo
+              title="Proyectos Completados"
+              color="#4287f5"
+              icon="checkmark"
+              data={completedProjects}
+            />
+          </View>
+          <View style={styles.moreActiveProjectsContainer}>
+            <View style={styles.moreActiveProjectsBox}>
+              <View style={styles.safeAreaBox}>
+                <View style={styles.containerTitle}>
+                  <View style={styles.boxTitle}>
+                    <View style={styles.boxIcon}>
+                      <View
+                        style={[
+                          styles.circle,
+                          { backgroundColor: "#ff8c00" + "26" },
+                        ]}
+                      >
+                        <Ionicons name="flame" size={20} color="#ff8c00" />
+                      </View>
+                    </View>
+                    <Text style={styles.title}>Proyectos mas activos</Text>
                   </View>
-                </View>
-                <Text style={styles.title}>Proyectos mas activos</Text>
-              </View>
-              <SafeAreaView style={styles.safeAreaView}>
-                <FlatList
-                  data={moreActiveProjects}
-                  renderItem={({ item }) => (
-                    <BtnProject
-                      title={item.title}
-                      version={item.version}
-                      id={item.id}
-                      author={item.author}
+                  <SafeAreaView style={styles.safeAreaView}>
+                    <FlatList
+                      data={moreActiveProjects}
+                      renderItem={({ item }) => (
+                        <BtnProject
+                          title={item.title}
+                          version={item.version}
+                          id={item.id}
+                          author={item.author}
+                        />
+                      )}
+                      keyExtractor={(item) => item.id}
+                      showsVerticalScrollIndicator={false}
+                      showsHorizontalScrollIndicator={false}
                     />
-                  )}
-                  keyExtractor={(item) => item.id}
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
-                />
-              </SafeAreaView>
+                  </SafeAreaView>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
-      </View>
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };
