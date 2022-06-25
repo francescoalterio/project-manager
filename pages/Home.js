@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   safeAreaBox: {
     width: "100%",
     alignItems: "center",
-    height: 350,
+    height: 400,
   },
   safeAreaView: {
     width: "95%",
