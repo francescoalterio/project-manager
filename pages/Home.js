@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
   moreActiveProjectsContainer: {
     width: "100%",
     marginBottom: 20,
+    alignItems: "center",
   },
   moreActiveProjectsBox: {
     backgroundColor: "#fff",
