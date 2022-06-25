@@ -81,12 +81,12 @@ const styles = StyleSheet.create({
   background: {
     width: "100%",
     alignItems: "center",
-    height: "100%",
+    flex: 1,
     paddingBottom: 30,
   },
   container: {
     width: "95%",
-    paddingBottom: 50,
+    paddingBottom: 60,
     paddingTop: 20,
   },
   flatlist: {
