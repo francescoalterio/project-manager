@@ -154,12 +154,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: "96%",
     borderRadius: 5,
-    height: 470,
+    height: 440,
   },
   safeAreaBox: {
     width: "100%",
     alignItems: "center",
-    height: 400,
+    height: 350,
   },
   safeAreaView: {
     width: "95%",
