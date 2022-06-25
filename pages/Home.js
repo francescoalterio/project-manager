@@ -139,7 +139,6 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 20,
   },
   infoContainer: {
     flexDirection: "row",
@@ -149,6 +148,7 @@ const styles = StyleSheet.create({
   },
   moreActiveProjectsContainer: {
     width: "100%",
+    marginBottom: 20,
   },
   moreActiveProjectsBox: {
     backgroundColor: "#fff",
