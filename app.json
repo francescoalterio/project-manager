@@ -14,6 +14,7 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
+      "versionCode": 2,
       "package": "com.francescox5.projectmanager"
     }
   },
