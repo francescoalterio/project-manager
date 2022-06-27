@@ -9,7 +9,6 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
-    "plugins": [],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
